@@ -24,7 +24,7 @@ export function SkillCard({skill, removeSkill, editSkill}: ISkillCardProps) {
     setIsEdit(true);
   }
   function handleCancelEditing() {
-    setTitleEdit(skill.name);
+    setTitleEdit(titleEdit);
     setIsEdit(false);
   }
   function handleSubmitEditing() {
@@ -54,7 +54,7 @@ export function SkillCard({skill, removeSkill, editSkill}: ISkillCardProps) {
           style={styles.buttonTextSkills}
           value={titleEdit}
           onChangeText={setTitleEdit}
-          editable={true}
+          editable={isEdit}
           onSubmitEditing={handleSubmitEditing}
           ref={textInputRef}
         />

@@ -1,5 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, TextInput, FlatList, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  FlatList,
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 import {Button} from '../../components/Button';
 import {SkillCard, ISkill} from '../../components/SkillCard';
@@ -74,42 +83,47 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{greeting} Fábio.</Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView behavior="position" enabled>
+          <Text style={styles.title}>{greeting} Fábio.</Text>
 
-      <Text style={[styles.greetings, {marginVertical: 20}]}>
-        Seja bem vindo!
-      </Text>
+          <Text style={[styles.greetings, {marginVertical: 20}]}>
+            Seja bem vindo!
+          </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="nova skill"
-        placeholderTextColor="#555"
-        onChangeText={setNewSkill}
-        value={newSkill}
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="nova skill"
+            placeholderTextColor="#555"
+            onChangeText={setNewSkill}
+            value={newSkill}
+          />
 
-      <Button title="Adicionar" onPress={handleAddNewSkill} />
+          <Button title="Adicionar" onPress={handleAddNewSkill} />
 
-      <Text style={[styles.title, {marginVertical: 40}]}>
-        {/* {newSkill} */}
-        Minhas Skills
-      </Text>
+          <Text style={[styles.title, {marginVertical: 40}]}>
+            {/* {newSkill} */}
+            Minhas Skills
+          </Text>
 
-      {/*   mySkills.map((skill,index) =>(
+          {/*   mySkills.map((skill,index) =>(
               <SkillCard key ={index} skill={skill}/>
             )) */}
-      <FlatList
-        data={mySkills}
-        keyExtractor={item => String(item.id)}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <SkillCard
-            skill={item}
-            removeSkill={handleRemoveSkill}
-            editSkill={handleEditSkill}
+          <FlatList
+            data={mySkills}
+            keyExtractor={item => String(item.id)}
+            showsVerticalScrollIndicator={false}
+            removeClippedSubviews={false}
+            renderItem={({item}) => (
+              <SkillCard
+                skill={item}
+                removeSkill={handleRemoveSkill}
+                editSkill={handleEditSkill}
+              />
+            )}
           />
-        )}
-      />
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
